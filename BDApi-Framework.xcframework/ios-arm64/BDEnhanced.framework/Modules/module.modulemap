@@ -1,0 +1,11 @@
+framework module BDEnhanced {
+  umbrella header "BDEnhanced-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module BDEnhanced.Swift {
+  header "BDEnhanced-Swift.h"
+  requires objc
+}

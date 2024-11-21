@@ -1,0 +1,1358 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.8 (swiftlang-5.8.0.124.2 clang-1403.0.22.11.100)
+// swift-module-flags: -target arm64-apple-ios11.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name BDEnhanced
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+@_exported import BDEnhanced
+import CoreData
+import ExternalAccessory
+import Foundation
+import Swift
+import UIKit
+import _Concurrency
+import _StringProcessing
+public protocol LVMAccessoryDelegate {
+  func connectedDevices() -> [BDEnhanced.LVMSensor]
+  func registerForConnectionUpdates(callback: @escaping BDEnhanced.BroadcastListener)
+}
+public enum AirStatus : Swift.String, BDEnhanced.PIDEnum, BDEnhanced.CaseIndexable {
+  public static subscript(index: Swift.Int) -> BDEnhanced.AirStatus {
+    get
+  }
+  case unknown
+  case upstream
+  case downstream
+  case atmosphere
+  case diagnostic
+  public static var defaultValue: BDEnhanced.AirStatus
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [BDEnhanced.AirStatus]
+  public typealias RawValue = Swift.String
+  public static var allCases: [BDEnhanced.AirStatus] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public typealias AnalyticsCompletionHandler = ((Swift.Bool) -> ())
+extension BDEnhanced.Gateway {
+  public func switchToWiFiMode(closure: @escaping (Swift.Result<Swift.String, BDEnhanced.CommError>) -> ())
+  public func applyWiFiConfiguration(config: BDEnhanced.WiFiConfiguration, callback: @escaping (Swift.Result<Swift.String, BDEnhanced.CommError>) -> ())
+}
+public enum AutoNeuralDriveStatus : Swift.String, BDEnhanced.PIDEnum, BDEnhanced.CaseIndexable {
+  public static subscript(index: Swift.Int) -> BDEnhanced.AutoNeuralDriveStatus {
+    get
+  }
+  case unknown
+  case neutral
+  case drive
+  public static let defaultValue: BDEnhanced.AutoNeuralDriveStatus
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [BDEnhanced.AutoNeuralDriveStatus]
+  public typealias RawValue = Swift.String
+  public static var allCases: [BDEnhanced.AutoNeuralDriveStatus] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+extension BDEnhanced.Gateway : BDEnhanced.LVMBaasDelegate {
+  public func requestRepairInfo(forVin vin: Swift.String, withDtcs dtcs: [Swift.String], listener: @escaping (Swift.Result<BDEnhanced.RepairAsset, BDEnhanced.WebError>) -> ())
+  public func requestXml(forVin: Swift.String = "", ofType type: BDEnhanced.VehicleXmlType, completion: @escaping BDEnhanced.WebResultListener)
+  public func requestYmme(for vin: Swift.String = "", completion: @escaping (Swift.Result<BDEnhanced.YMME, BDEnhanced.VinError>) -> ())
+  public func xmlToYmme(vin: Swift.String, xml: Swift.String) -> BDEnhanced.YMME
+}
+public protocol CaseIndexable : Swift.CaseIterable {
+  static subscript(index: Swift.Int) -> Self { get }
+  static var defaultValue: Self { get }
+}
+public enum ControlAreaStatus : Swift.String, BDEnhanced.PIDEnum, BDEnhanced.CaseIndexable {
+  public static subscript(index: Swift.Int) -> BDEnhanced.ControlAreaStatus {
+    get
+  }
+  case unknown
+  case inside
+  case outside
+  case manufacturer
+  case deficiency
+  public static let defaultValue: BDEnhanced.ControlAreaStatus
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [BDEnhanced.ControlAreaStatus]
+  public typealias RawValue = Swift.String
+  public static var allCases: [BDEnhanced.ControlAreaStatus] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum DEFDosingMode : Swift.String, BDEnhanced.PIDEnum, BDEnhanced.CaseIndexable {
+  public static subscript(index: Swift.Int) -> BDEnhanced.DEFDosingMode {
+    get
+  }
+  case unknown
+  case off
+  case manufacturer
+  public static var defaultValue: BDEnhanced.DEFDosingMode
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [BDEnhanced.DEFDosingMode]
+  public typealias RawValue = Swift.String
+  public static var allCases: [BDEnhanced.DEFDosingMode] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum DEFType : Swift.String, BDEnhanced.PIDEnum, BDEnhanced.CaseIndexable {
+  public static subscript(index: Swift.Int) -> BDEnhanced.DEFType {
+    get
+  }
+  case unknown
+  case high
+  case low
+  case proper
+  case unavailable
+  case fault
+  public static var defaultValue: BDEnhanced.DEFType
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [BDEnhanced.DEFType]
+  public typealias RawValue = Swift.String
+  public static var allCases: [BDEnhanced.DEFType] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+extension Foundation.UnitFrequency {
+  public static let revolutionsPerMinute: Foundation.UnitFrequency
+}
+extension Foundation.UnitPressure {
+  public static let inchesOfWater: Foundation.UnitPressure
+  public static let pascals: Foundation.UnitPressure
+}
+extension Foundation.UnitConcentrationMass {
+  public static let milligramsPerCubicMeter: Foundation.UnitConcentrationMass
+  public static let poundsPerLiquidGallon: Foundation.UnitConcentrationMass
+}
+@objc @_inheritsConvenienceInitializers final public class UnitPercentage : Foundation.Dimension {
+  public static let percent: BDEnhanced.UnitPercentage
+  @objc override final public class func baseUnit() -> BDEnhanced.UnitPercentage
+  @objc override dynamic public init(symbol: Swift.String, converter: Foundation.UnitConverter)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers final public class UnitTorque : Foundation.Dimension {
+  public static let newtonMeter: BDEnhanced.UnitTorque
+  public static let poundFoot: BDEnhanced.UnitTorque
+  @objc override final public class func baseUnit() -> BDEnhanced.UnitTorque
+  @objc override dynamic public init(symbol: Swift.String, converter: Foundation.UnitConverter)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers final public class UnitMassFlowRate : Foundation.Dimension {
+  public static let kilogramsPerSecond: BDEnhanced.UnitMassFlowRate
+  public static let kilogramsPerHour: BDEnhanced.UnitMassFlowRate
+  public static let gramsPerSecond: BDEnhanced.UnitMassFlowRate
+  public static let gramsPerMinute: BDEnhanced.UnitMassFlowRate
+  public static let gramsPerHour: BDEnhanced.UnitMassFlowRate
+  public static let poundsPerMinute: BDEnhanced.UnitMassFlowRate
+  public static let poundsPerSecond: BDEnhanced.UnitMassFlowRate
+  public static let poundsPerHour: BDEnhanced.UnitMassFlowRate
+  @objc override final public class func baseUnit() -> BDEnhanced.UnitMassFlowRate
+  @objc override dynamic public init(symbol: Swift.String, converter: Foundation.UnitConverter)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers final public class UnitVolumeFlowRate : Foundation.Dimension {
+  @objc override final public class func baseUnit() -> BDEnhanced.UnitVolumeFlowRate
+  @objc override dynamic public init(symbol: Swift.String, converter: Foundation.UnitConverter)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers final public class UnitAirFuelEquivalenceRatio : Foundation.Dimension {
+  @objc override final public class func baseUnit() -> BDEnhanced.UnitAirFuelEquivalenceRatio
+  @objc override dynamic public init(symbol: Swift.String, converter: Foundation.UnitConverter)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers final public class UnitNone : Foundation.Dimension {
+  public static let none: BDEnhanced.UnitNone
+  @objc override final public class func baseUnit() -> BDEnhanced.UnitNone
+  @objc override dynamic public init(symbol: Swift.String, converter: Foundation.UnitConverter)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers final public class UnitInjectionQuantity : Foundation.Dimension {
+  public static let milligramsPerStroke: BDEnhanced.UnitInjectionQuantity
+  @objc override final public class func baseUnit() -> BDEnhanced.UnitInjectionQuantity
+  @objc override dynamic public init(symbol: Swift.String, converter: Foundation.UnitConverter)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+public enum DiscriminatoryDisplayStrategy : Swift.String, BDEnhanced.PIDEnum, BDEnhanced.CaseIndexable {
+  public static subscript(index: Swift.Int) -> BDEnhanced.DiscriminatoryDisplayStrategy {
+    get
+  }
+  case unknown
+  case nonDiscriminatory
+  case discriminatory
+  case reserved
+  case notAvailable
+  public static var defaultValue: BDEnhanced.DiscriminatoryDisplayStrategy
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [BDEnhanced.DiscriminatoryDisplayStrategy]
+  public typealias RawValue = Swift.String
+  public static var allCases: [BDEnhanced.DiscriminatoryDisplayStrategy] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum EmissionRequirements : Swift.String, BDEnhanced.PIDEnum, BDEnhanced.CaseIndexable {
+  public static subscript(index: Swift.Int) -> BDEnhanced.EmissionRequirements {
+    get
+  }
+  case unknown
+  case reserved
+  case euroIVB1
+  case euroVB2
+  case euroC
+  case euroVI
+  public static let defaultValue: BDEnhanced.EmissionRequirements
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [BDEnhanced.EmissionRequirements]
+  public typealias RawValue = Swift.String
+  public static var allCases: [BDEnhanced.EmissionRequirements] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum EmissionsSystemReadiness : Swift.String, BDEnhanced.PIDEnum, BDEnhanced.CaseIndexable {
+  public static subscript(index: Swift.Int) -> BDEnhanced.EmissionsSystemReadiness {
+    get
+  }
+  case unknown
+  case complete
+  case incomplete
+  public static var defaultValue: BDEnhanced.EmissionsSystemReadiness
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [BDEnhanced.EmissionsSystemReadiness]
+  public typealias RawValue = Swift.String
+  public static var allCases: [BDEnhanced.EmissionsSystemReadiness] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum EVChargingState : Swift.String, BDEnhanced.PIDEnum, BDEnhanced.CaseIndexable {
+  public static subscript(index: Swift.Int) -> BDEnhanced.EVChargingState {
+    get
+  }
+  case unknown
+  case sustaining
+  case depleting
+  case increasing
+  case notPsa
+  public static var defaultValue: BDEnhanced.EVChargingState
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [BDEnhanced.EVChargingState]
+  public typealias RawValue = Swift.String
+  public static var allCases: [BDEnhanced.EVChargingState] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public typealias VehicleXmlType = BDEnhanced.BDVehicleXmlType
+extension Swift.Optional where Wrapped : Swift.Collection {
+  public var isNilOrEmpty: Swift.Bool {
+    get
+  }
+  public var nonEmpty: Wrapped? {
+    get
+  }
+  public func unwrapped(or defaultValue: Wrapped) -> Wrapped
+}
+public enum FuelSystemStatus : Swift.String, BDEnhanced.PIDEnum, BDEnhanced.CaseIndexable {
+  public static subscript(index: Swift.Int) -> BDEnhanced.FuelSystemStatus {
+    get
+  }
+  case Unknown
+  case OL
+  case CL
+  case OLDrive
+  case OLFault
+  case CLFault
+  case OLB2
+  case OLDriveB2
+  case OLFaultB2
+  public static let defaultValue: BDEnhanced.FuelSystemStatus
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [BDEnhanced.FuelSystemStatus]
+  public typealias RawValue = Swift.String
+  public static var allCases: [BDEnhanced.FuelSystemStatus] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum FuelType : Swift.String, BDEnhanced.PIDEnum, BDEnhanced.CaseIndexable {
+  public static subscript(index: Swift.Int) -> BDEnhanced.FuelType {
+    get
+  }
+  case unknown
+  case notAvailable
+  case gas
+  case methanol
+  case ethanol
+  case disel
+  case lpg
+  case cng
+  case propane
+  case electric
+  case biGas
+  case biMeth
+  case biEth
+  case biLPG
+  case biCNG
+  case biProp
+  case biElec
+  case biMix
+  case hybGas
+  case hybEth
+  case hybDsl
+  case hybElec
+  case hybMix
+  case hybReg
+  case biDsl
+  case ng
+  case biNg
+  case dslCng
+  case dslLNG
+  case fcH2
+  case hice
+  case kerosene
+  public static let defaultValue: BDEnhanced.FuelType
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [BDEnhanced.FuelType]
+  public typealias RawValue = Swift.String
+  public static var allCases: [BDEnhanced.FuelType] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers public class Gateway : ObjectiveC.NSObject {
+  public var status: BDEnhanced.SensorConnectionStatus
+  public var vin: Swift.String? {
+    get
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension BDEnhanced.Gateway : BDEnhanced.LVMSensorDelegate {
+  public func connect(withSensor sensor: BDEnhanced.LVMSensor, andListener sensorListener: @escaping BDEnhanced.LVMSensorListener)
+  public func disconnect()
+  public func libraryVersion() -> Swift.String
+  public func sensorVersion() -> Swift.Float
+  public func lastConnectedFwVersion() -> Swift.Float
+  public func requestZippedLogs(withClosure closure: @escaping (Foundation.URL?) -> ())
+}
+extension BDEnhanced.Gateway : BDEnhanced.LVMAccessoryDelegate {
+  public func registerForConnectionUpdates(callback: @escaping BDEnhanced.BroadcastListener)
+  public func connectedDevices() -> [BDEnhanced.LVMSensor]
+}
+extension BDEnhanced.Gateway : BDEnhanced.LVMFirmwareDelegate {
+  public func requestLatestServerFirmware(withListener listener: @escaping BDEnhanced.LVMFirmwareVersionListener)
+  public func downloadFirmware(withVersionKey versionKey: Swift.String = "recent", andListener listener: @escaping (BDEnhanced.FirmwareDownloadState) -> Swift.Void)
+  public func startFirmwareUpdate(withListener listener: @escaping (BDEnhanced.FirmwareUpdateState) -> Swift.Void)
+}
+public protocol GatewayLoggerDelegate {
+  func receivedLog(string: Swift.String)
+}
+@_hasMissingDesignatedInitializers public class GatewayLogger {
+  public static var delegate: (any BDEnhanced.GatewayLoggerDelegate)?
+  public static func log(_ str: Swift.String)
+  @objc deinit
+}
+public enum InducementStatus : Swift.String, BDEnhanced.PIDEnum, BDEnhanced.CaseIndexable {
+  public static subscript(index: Swift.Int) -> BDEnhanced.InducementStatus {
+    get
+  }
+  case unknown
+  case inactive
+  case enabled
+  case active
+  case unsupported
+  public static var defaultValue: BDEnhanced.InducementStatus
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [BDEnhanced.InducementStatus]
+  public typealias RawValue = Swift.String
+  public static var allCases: [BDEnhanced.InducementStatus] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public typealias SupportedPidsListener = (Swift.Result<[BDEnhanced.PIDInfo], BDEnhanced.LVMError>) -> ()
+public typealias PidListener = (Swift.Result<BDEnhanced.PIDInfo, BDEnhanced.CommError>) -> ()
+public typealias NumericPidListener = (Swift.Result<BDEnhanced.NumericPID, BDEnhanced.CommError>) -> ()
+public protocol LVMLiveDelegate {
+  func supportedPids(callback: @escaping BDEnhanced.SupportedPidsListener)
+  func updatePID(_ pid: BDEnhanced.PIDInfo, callback: @escaping BDEnhanced.PidListener)
+  var pids: [BDEnhanced.PIDInfo] { get }
+  func requestOdometer(callback: @escaping BDEnhanced.NumericPidListener)
+  func checkAutoVinSupport(callback: @escaping (Swift.Result<Swift.Bool, BDEnhanced.LVMError>) -> ())
+  func requestVin(callback: @escaping (Swift.Result<Swift.String, BDEnhanced.CommError>) -> ())
+}
+extension BDEnhanced.Gateway : BDEnhanced.LVMLiveDelegate {
+  public func requestOdometer(callback: @escaping BDEnhanced.NumericPidListener)
+  public func supportedPids(callback: @escaping BDEnhanced.SupportedPidsListener)
+  public var pids: [BDEnhanced.PIDInfo] {
+    get
+  }
+  public func updatePID(_ pid: BDEnhanced.PIDInfo, callback: @escaping BDEnhanced.PidListener)
+  public func checkAutoVinSupport(callback: @escaping (Swift.Result<Swift.Bool, BDEnhanced.LVMError>) -> ())
+  public func requestVin(callback: @escaping (Swift.Result<Swift.String, BDEnhanced.CommError>) -> ())
+}
+public enum LoopStatus : Swift.String, BDEnhanced.PIDEnum, BDEnhanced.CaseIndexable {
+  public static subscript(index: Swift.Int) -> BDEnhanced.LoopStatus {
+    get
+  }
+  case unknown
+  case reserved
+  case open
+  case closed
+  case fault
+  public static let defaultValue: BDEnhanced.LoopStatus
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [BDEnhanced.LoopStatus]
+  public typealias RawValue = Swift.String
+  public static var allCases: [BDEnhanced.LoopStatus] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public typealias FirmwareUpdateListener = (BDEnhanced.FirmwareUpdateState) -> Swift.Void
+public typealias FirmwareDownloadListener = (BDEnhanced.FirmwareDownloadState) -> Swift.Void
+public enum FirmwareDownloadStatus {
+  case downloadFailed(BDEnhanced.FirmwareError)
+  case downloadComplete
+}
+public enum FirmwareDownloadState {
+  case firmwareDownloadStarted
+  case firmwareDownloadCompleted(BDEnhanced.FirmwareDownloadStatus)
+}
+public enum FirmwareUpdateError {
+  case malformedPayload
+  case firmwareNotDownloaded
+  case setupFailed
+  case timeOut
+  case notConnected
+  case unexpectedDisconnect
+  public static func == (a: BDEnhanced.FirmwareUpdateError, b: BDEnhanced.FirmwareUpdateError) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum FirmwareUpdateState {
+  case updateFailed(BDEnhanced.FirmwareUpdateError)
+  case updateComplete
+  case updateProgress(Swift.Float)
+  case notSupported
+}
+public typealias LVMFirmwareVersionListener = (Swift.Result<Swift.String, BDEnhanced.FirmwareError>) -> ()
+public enum FirmwareError : Swift.Error {
+  case general(Swift.Int, Swift.String)
+  case invalidResponse(Swift.Int)
+  case invalidPayload
+  case invalidArguments
+  case unknown
+  case notSupported
+}
+public struct RepairAsset : Swift.Codable, Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+  public let assets: [BDEnhanced.Asset]
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct Asset : Swift.Codable, Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+  public let dtcAsset: BDEnhanced.DTCAsset
+  public let fixAsset: [BDEnhanced.FixAsset]
+  public let proTipAsset: [BDEnhanced.ProTipAsset]
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct DTCAsset : Swift.Codable, Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+  public let code: Swift.String
+  public let dtcDescription: BDEnhanced.DTCDescription
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct ProTipAsset : Swift.Codable, Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+  public let text: Swift.String
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct DTCDescription : Swift.Codable, Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+  public let text: Swift.String
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct FixAsset : Swift.Codable, Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+  public let category: Swift.String
+  public var text: Swift.String
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct RepairAssetRequest : Swift.Codable {
+  public let vin: Swift.String
+  public let dtcs: [Swift.String]
+  public let mac: Swift.String
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public enum ManualTransNeutralGearStatus : Swift.String, BDEnhanced.PIDEnum, BDEnhanced.CaseIndexable {
+  public static subscript(index: Swift.Int) -> BDEnhanced.ManualTransNeutralGearStatus {
+    get
+  }
+  case unknown
+  case neutral
+  case gear
+  public static let defaultValue: BDEnhanced.ManualTransNeutralGearStatus
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [BDEnhanced.ManualTransNeutralGearStatus]
+  public typealias RawValue = Swift.String
+  public static var allCases: [BDEnhanced.ManualTransNeutralGearStatus] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum MIActivationMode : Swift.String, BDEnhanced.PIDEnum, BDEnhanced.CaseIndexable {
+  public static subscript(index: Swift.Int) -> BDEnhanced.MIActivationMode {
+    get
+  }
+  case unknown
+  case mode1
+  case mode2
+  case mode3
+  case mode4
+  case reserved
+  case error
+  case notAvailable
+  public static var defaultValue: BDEnhanced.MIActivationMode
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [BDEnhanced.MIActivationMode]
+  public typealias RawValue = Swift.String
+  public static var allCases: [BDEnhanced.MIActivationMode] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+extension BDEnhanced.Gateway {
+  public func requestSmogInfo(listener: @escaping (Swift.Result<BDEnhanced.SmogInfoReport, BDEnhanced.SmogInfoError>) -> ())
+}
+public enum MonitorTestStatus {
+  case unavailable
+  case complete
+  case incomplete
+  case unknown
+  public static func == (a: BDEnhanced.MonitorTestStatus, b: BDEnhanced.MonitorTestStatus) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum MonitorTestType {
+  case spark(sparkTests: BDEnhanced.SparkTests)
+  case compression(compressionTests: BDEnhanced.CompressionTests)
+  case unknown
+}
+public struct SparkTests {
+  public var description: Swift.String {
+    get
+  }
+  public let eGRSystem: BDEnhanced.MonitorTestStatus
+  public let oxygenSensorHeater: BDEnhanced.MonitorTestStatus
+  public let oxygenSensor: BDEnhanced.MonitorTestStatus
+  public let aCRefrigerant: BDEnhanced.MonitorTestStatus
+  public let secondaryAirSystem: BDEnhanced.MonitorTestStatus
+  public let evaporativeSystem: BDEnhanced.MonitorTestStatus
+  public let heatedCatalyst: BDEnhanced.MonitorTestStatus
+  public let catalyst: BDEnhanced.MonitorTestStatus
+  public var areAllComplete: Swift.Bool {
+    get
+  }
+}
+public struct CompressionTests {
+  public let eGRAndOrVVTSystem: BDEnhanced.MonitorTestStatus
+  public let pMFilterMonitoring: BDEnhanced.MonitorTestStatus
+  public let exhaustGasSensor: BDEnhanced.MonitorTestStatus
+  public let boostPressure: BDEnhanced.MonitorTestStatus
+  public let nOxSCRMonitor: BDEnhanced.MonitorTestStatus
+  public let nMHCCatalyst: BDEnhanced.MonitorTestStatus
+  public var description: Swift.String {
+    get
+  }
+  public var areAllComplete: Swift.Bool {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class PID0101_MonitorStatus : BDEnhanced.PID<Swift.Void> {
+  public var milOn: Swift.Bool
+  public var dtcCount: Swift.Int
+  public var monitorType: BDEnhanced.MonitorTestType
+  public var componentsTest: BDEnhanced.MonitorTestStatus
+  public var fuelSystemTest: BDEnhanced.MonitorTestStatus
+  public var misfireTest: BDEnhanced.MonitorTestStatus
+  override public var description: Swift.String {
+    get
+  }
+  public var areAllComplete: Swift.Bool {
+    get
+  }
+  @objc deinit
+}
+public enum OBDRequirements : Swift.String, BDEnhanced.PIDEnum, BDEnhanced.CaseIndexable {
+  public static subscript(index: Swift.Int) -> BDEnhanced.OBDRequirements {
+    get
+  }
+  case unknown
+  case obdII
+  case obd
+  case obdAndObdII
+  case obdI
+  case noObd
+  case eobd
+  case eobdAndObdII
+  case eobdAndObd
+  case eobdObdAndObdII
+  case jobd
+  case jobdAndObdII
+  case jobdAndEobd
+  case jobdEobdAndObdII
+  case obdEobdAndKobd
+  case obdObdIIEobdKobd
+  case reserved
+  case emd
+  case emdPlus
+  case hdObdC
+  case hdObd
+  case wwhObd
+  case hdEobdI
+  case hdEobdIN
+  case hdEobdII
+  case hdEobdIIN
+  case obdBr1
+  case obdBr2
+  case kobd
+  case iobdI
+  case iobdII
+  case hdEobdVI
+  case obdObdIIHdObd
+  case obdBr3
+  case mcEobdI
+  case mcEObdII
+  case mcCobdI
+  case mcTobdI
+  case mcJobdI
+  case cnObd6
+  case obdBrD
+  case cnHdObdVI
+  case notAvailable
+  public static let defaultValue: BDEnhanced.OBDRequirements
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [BDEnhanced.OBDRequirements]
+  public typealias RawValue = Swift.String
+  public static var allCases: [BDEnhanced.OBDRequirements] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum Mode : Swift.Int {
+  case LiveData
+  case VehicleInfo
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum SupportStatus {
+  case supported
+  case unsupported
+  case unknown
+  public static func == (a: BDEnhanced.SupportStatus, b: BDEnhanced.SupportStatus) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public protocol PIDData : BDEnhanced.PIDInfo {
+  associatedtype T
+  var value: Self.T? { get }
+}
+@_hasMissingDesignatedInitializers public class PIDInfo : Swift.CustomStringConvertible {
+  final public let mode: BDEnhanced.Mode
+  final public let pid: Swift.UInt
+  public var category: BDEnhanced.PIDCategory {
+    get
+  }
+  public var fullName: Swift.String {
+    get
+  }
+  public var shortName: Swift.String {
+    get
+  }
+  public var supportStatus: BDEnhanced.SupportStatus {
+    get
+  }
+  public var description: Swift.String {
+    get
+  }
+  public func valueAsText(useAltValueIfAvailable: Swift.Bool = false) -> Swift.String
+  @objc deinit
+}
+extension BDEnhanced.PIDInfo : Swift.Equatable {
+  public static func == (lhs: BDEnhanced.PIDInfo, rhs: BDEnhanced.PIDInfo) -> Swift.Bool
+}
+@_hasMissingDesignatedInitializers public class PID<T> : BDEnhanced.PIDInfo, BDEnhanced.PIDData {
+  public var value: T? {
+    get
+  }
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class DirectDataPID : BDEnhanced.PID<[Swift.CUnsignedChar]> {
+  override public var value: [Swift.CUnsignedChar]? {
+    get
+  }
+  override public var description: Swift.String {
+    get
+  }
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class BinaryPID : BDEnhanced.PID<Swift.Bool> {
+  override public var description: Swift.String {
+    get
+  }
+  override public var value: Swift.Bool? {
+    get
+  }
+  override public func valueAsText(useAltValueIfAvailable: Swift.Bool = false) -> Swift.String
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class NumericPID : BDEnhanced.PID<Foundation.Measurement<Foundation.Dimension>> {
+  final public let units: Foundation.Dimension?
+  final public let altUnit: Foundation.Dimension?
+  public var minValue: Swift.Double {
+    get
+  }
+  public var maxValue: Swift.Double {
+    get
+  }
+  override public var description: Swift.String {
+    get
+  }
+  public var altValue: Foundation.Measurement<Foundation.Dimension>? {
+    get
+  }
+  override public var value: Foundation.Measurement<Foundation.Dimension>? {
+    get
+  }
+  override public func valueAsText(useAltValueIfAvailable: Swift.Bool = false) -> Swift.String
+  @objc deinit
+}
+public typealias StringPID = BDEnhanced.PID<any BDEnhanced.PIDEnum>
+public enum PIDCategory {
+  case other
+  case numeric
+  case string
+  case boolean
+  public static func == (a: BDEnhanced.PIDCategory, b: BDEnhanced.PIDCategory) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public protocol PIDEnum {
+  var rawValue: Swift.String { get }
+}
+public enum RegenType : Swift.String, BDEnhanced.PIDEnum, BDEnhanced.CaseIndexable {
+  public static subscript(index: Swift.Int) -> BDEnhanced.RegenType {
+    get
+  }
+  case unknown
+  case passive
+  case active
+  public static var defaultValue: BDEnhanced.RegenType
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [BDEnhanced.RegenType]
+  public typealias RawValue = Swift.String
+  public static var allCases: [BDEnhanced.RegenType] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum LVMScanError : Swift.Error {
+  case enhancedUnsupported
+  case timeout([BDEnhanced.LVMModule])
+  case general(code: Swift.Int, descripton: Swift.String)
+  case errorLoading
+  case disconnected([BDEnhanced.LVMModule])
+  case communicaton([BDEnhanced.LVMModule])
+  case deviceBusy
+  case unsupported
+  case notInitialized
+}
+public enum LVMClearError : Swift.Error {
+  case notScanned
+  case disconnected
+  case communication(description: Swift.String)
+  case deviceBusy
+  case unsupported
+}
+@objc @_hasMissingDesignatedInitializers public class LVMTroubleCode : ObjectiveC.NSObject {
+  final public let code: Swift.String
+  final public let codeDescription: Swift.String
+  final public let status: Swift.String
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers public class LVMModule : ObjectiveC.NSObject {
+  final public let name: Swift.String
+  final public let acronym: Swift.String
+  final public let light: Swift.String
+  public var lightCategory: BDEnhanced.LVMLightCategory {
+    get
+  }
+  public var category: BDEnhanced.LVMModuleCategory {
+    get
+  }
+  public var results: [BDEnhanced.LVMTroubleCode]
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+public typealias LVMScanResult = Swift.Result<[BDEnhanced.LVMModule], BDEnhanced.LVMScanError>
+public enum LVMScanType : Swift.String {
+  case cel
+  case cdl
+  case all
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum InteractionType {
+  case keyFlick(listener: BDEnhanced.ContinueScanCallback)
+  case custom(msg: Swift.String, listener: BDEnhanced.ContinueScanCallback)
+}
+public enum LVMScanProgress {
+  case update(percentage: Swift.Float)
+  case complete(result: BDEnhanced.LVMScanResult)
+  case error(error: BDEnhanced.LVMScanError)
+  case interactionRequired(type: BDEnhanced.InteractionType)
+}
+public enum LVMClearResult {
+  case complete(result: Swift.Bool)
+  case error(error: BDEnhanced.LVMClearError)
+}
+public typealias ContinueScanCallback = () -> ()
+public typealias ProgressListener = (BDEnhanced.LVMScanProgress) -> ()
+public typealias InteractionListener = (() -> ()) -> ()
+public typealias ScanListener = (BDEnhanced.LVMScanProgress) -> ()
+public protocol LVMScanDelegate {
+  func supportsEnhancedDiagnostics(vin: Swift.String) -> Swift.Bool
+  func performScan(forVin vin: Swift.String?, scanType: BDEnhanced.LVMScanType, listener: @escaping BDEnhanced.ScanListener)
+  func clearModule(_ module: BDEnhanced.LVMModule, listener: @escaping (BDEnhanced.LVMClearResult) -> ())
+}
+public enum LVMLightCategory : Swift.String {
+  case fourX4
+  case abs
+  case adaptiveCruise
+  case airbag
+  case blindSpotMonitor
+  case collisionAvoidance
+  case electrical
+  case laneKeepAssist
+  case maintenance
+  case powerSteering
+  case rearParkingAid
+  case securityTheftSystem
+  case suspension
+  case tirePressure
+  case tractionControl
+  case transmission
+  case engine
+  case unknown
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum LVMModuleCategory : Swift.String {
+  case fourWDAWD
+  case absAndBrakes
+  case airbagsAndRestraints
+  case batteryAndPower
+  case doorsAndWindows
+  case driveInformationAndControl
+  case driverAssistAndActiveSafety
+  case engine
+  case entertainmentAndNavigation
+  case heatAndAirConditioning
+  case hybridAndEV
+  case lights
+  case network
+  case premiumVehicleOptions
+  case seatsAndMirrors
+  case securityAndKeylessEntry
+  case tirePressure
+  case trailerAndAuxiliaryEquipment
+  case transmissionAndDrivetrain
+  case vehicleControlAndSuspension
+  case unknown
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+extension BDEnhanced.Gateway : BDEnhanced.LVMScanDelegate {
+  public func supportsEnhancedDiagnostics(vin: Swift.String) -> Swift.Bool
+  public func performScan(forVin vin: Swift.String?, scanType: BDEnhanced.LVMScanType, listener: @escaping BDEnhanced.ScanListener)
+  public func clearModule(_ module: BDEnhanced.LVMModule, listener: @escaping (BDEnhanced.LVMClearResult) -> ())
+}
+public enum SCRInducementState : Swift.String, BDEnhanced.PIDEnum, BDEnhanced.CaseIndexable {
+  public static subscript(index: Swift.Int) -> BDEnhanced.SCRInducementState {
+    get
+  }
+  case unknown
+  case inactive
+  case low
+  case incorrect
+  case deviation
+  case high
+  public static var defaultValue: BDEnhanced.SCRInducementState
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [BDEnhanced.SCRInducementState]
+  public typealias RawValue = Swift.String
+  public static var allCases: [BDEnhanced.SCRInducementState] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum SensorType : Swift.Equatable {
+  case mfi(Swift.String, Swift.Int)
+  case le(Foundation.UUID)
+  public static func == (a: BDEnhanced.SensorType, b: BDEnhanced.SensorType) -> Swift.Bool
+}
+@objc @_hasMissingDesignatedInitializers public class LVMSensor : ObjectiveC.NSObject {
+  final public let name: Swift.String
+  final public let sensorType: BDEnhanced.SensorType
+  public var isIntialized: Swift.Bool {
+    get
+  }
+  public var identifier: Swift.String? {
+    get
+  }
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+public typealias LVMSensorListener = (BDEnhanced.LVMSensorState) -> ()
+public typealias WebResultListener = (Swift.Result<Swift.String, BDEnhanced.WebError>) -> ()
+public typealias LVMBaasListener = (Swift.Result<BDEnhanced.RepairAsset, BDEnhanced.WebError>) -> ()
+public enum LVMSensorStatus {
+  case initialized
+  case initializationFailed
+  case recoveryMode
+  public static func == (a: BDEnhanced.LVMSensorStatus, b: BDEnhanced.LVMSensorStatus) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum WebError : Swift.Error {
+  case unableToDecodeResponse
+  case timeout
+  case invalidResponse
+  case invalidParameters
+  case invalidParameter(Swift.String)
+  case general(code: Swift.Int, description: Swift.String)
+  case unsupported
+}
+public enum LVMError : Swift.Error {
+  case general(description: Swift.String, code: Swift.Int)
+  case dataError
+  case initialization
+  case callbackDeallocated
+  case notConnected
+  case deviceBusy
+  case unsupportedApi
+}
+public enum CommError : Swift.Error {
+  case timedOut
+  case noData
+  case noDelegate
+  case invalidData
+  case unsupported
+  case notConnected
+  case deviceBusy
+  case unsupportedApi
+  public static func == (a: BDEnhanced.CommError, b: BDEnhanced.CommError) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum LVMSensorState {
+  case onSensorConnected(status: BDEnhanced.LVMSensorStatus)
+  case onSensorDisconnected
+  case onError(error: BDEnhanced.LVMError)
+}
+public protocol LVMSensorDelegate {
+  func connect(withSensor sensor: BDEnhanced.LVMSensor, andListener sensorListener: @escaping BDEnhanced.LVMSensorListener)
+  func disconnect()
+  func libraryVersion() -> Swift.String
+  func sensorVersion() -> Swift.Float
+  func lastConnectedFwVersion() -> Swift.Float
+  func requestZippedLogs(withClosure closure: @escaping (Foundation.URL?) -> ())
+  var status: BDEnhanced.SensorConnectionStatus { get }
+}
+public protocol LVMFirmwareDelegate {
+  func requestLatestServerFirmware(withListener listener: @escaping BDEnhanced.LVMFirmwareVersionListener)
+  func downloadFirmware(withVersionKey versionKey: Swift.String, andListener listener: @escaping BDEnhanced.FirmwareDownloadListener)
+  func startFirmwareUpdate(withListener listener: @escaping BDEnhanced.FirmwareUpdateListener)
+}
+public protocol LVMBaasDelegate {
+  func requestXml(forVin vin: Swift.String, ofType type: BDEnhanced.VehicleXmlType, completion: @escaping BDEnhanced.WebResultListener)
+  func requestYmme(for vin: Swift.String, completion: @escaping (Swift.Result<BDEnhanced.YMME, BDEnhanced.VinError>) -> ())
+  func requestRepairInfo(forVin vin: Swift.String, withDtcs dtcs: [Swift.String], listener: @escaping BDEnhanced.LVMBaasListener)
+}
+public struct YMME : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+  public var vin: Swift.String?
+  public var make: Swift.String?
+  public var model: Swift.String?
+  public var engine: Swift.String?
+  public var series: Swift.String?
+  public var year: Swift.Int?
+}
+public typealias SmogInfoListener = (Swift.Result<BDEnhanced.SmogInfoReport, BDEnhanced.SmogInfoError>) -> ()
+public enum SensorConnectionStatus {
+  case connected
+  case disconnected
+  case errorOpeningConnection
+  public static func == (a: BDEnhanced.SensorConnectionStatus, b: BDEnhanced.SensorConnectionStatus) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum BroadcastStatus {
+  case appeared
+  case disappeared
+  public static func == (a: BDEnhanced.BroadcastStatus, b: BDEnhanced.BroadcastStatus) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public typealias BroadcastListener = (BDEnhanced.LVMSensor, BDEnhanced.BroadcastStatus) -> ()
+public typealias SensorStatusListener = ((BDEnhanced.SensorConnectionStatus) -> ())
+public enum SimpleLoopStatus : Swift.String, BDEnhanced.PIDEnum, BDEnhanced.CaseIndexable {
+  public static subscript(index: Swift.Int) -> BDEnhanced.SimpleLoopStatus {
+    get
+  }
+  case unknown
+  case open
+  case closed
+  public static var defaultValue: BDEnhanced.SimpleLoopStatus
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [BDEnhanced.SimpleLoopStatus]
+  public typealias RawValue = Swift.String
+  public static var allCases: [BDEnhanced.SimpleLoopStatus] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum SmogInfoError : Swift.Error {
+  case setupFailed
+  case notConnected
+  case deviceBusy
+  public static func == (a: BDEnhanced.SmogInfoError, b: BDEnhanced.SmogInfoError) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum SmogReportStatus {
+  case pass
+  case fail
+  case warning
+  case incomplete
+  public static func == (a: BDEnhanced.SmogReportStatus, b: BDEnhanced.SmogReportStatus) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class SmogInfoReport : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+  public var runTimeSinceEngineStart: BDEnhanced.NumericPID
+  public var distanceMilOn: BDEnhanced.NumericPID
+  public var distanceMilOff: BDEnhanced.NumericPID
+  public var timeMilOn: BDEnhanced.NumericPID
+  public var timeMilOff: BDEnhanced.NumericPID
+  public var monitorStatus: BDEnhanced.PID0101_MonitorStatus
+  public var numConfirmed: Swift.Int
+  public var numPending: Swift.Int
+  public var smogCheckResult: BDEnhanced.SmogReportStatus {
+    get
+    set
+  }
+  @objc deinit
+}
+public enum TransmissionGear : Swift.String, BDEnhanced.PIDEnum, BDEnhanced.CaseIndexable {
+  public static subscript(index: Swift.Int) -> BDEnhanced.TransmissionGear {
+    get
+  }
+  case unknown
+  case neutral
+  case gear1
+  case gear2
+  case gear3
+  case gear4
+  case gear5
+  case gear6
+  case gear7
+  case gear8
+  case gear9
+  case gear10
+  case gear11
+  case gear12
+  case gear13
+  case gear14
+  case gear15
+  public static var defaultValue: BDEnhanced.TransmissionGear
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [BDEnhanced.TransmissionGear]
+  public typealias RawValue = Swift.String
+  public static var allCases: [BDEnhanced.TransmissionGear] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum VinError : Swift.Error {
+  case dbMissing
+  case couldNotLoadDb
+  case couldNotLoadResource
+  case invalidVin
+  case noEntry
+  case unsupported
+  public static func == (a: BDEnhanced.VinError, b: BDEnhanced.VinError) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public class WiFiConfiguration {
+  public init(ssid: Swift.String?, password: Swift.String?, securityType: BDEnhanced.WiFiSecurityType?, ssidHidden: Swift.Bool?) throws
+  convenience public init(ssid: Swift.String?, password: Swift.String?, securityType: BDEnhanced.WiFiSecurityType?, ssidHidden: Swift.Bool?, ip: Swift.String?, gateway: Swift.String?, dns: Swift.String?, subnetMask: Swift.String?) throws
+  @objc deinit
+}
+public enum WiFiConfigurationError : Swift.Error {
+  case ssidNotSet
+  case passwordNotSet
+  case securityTypeNotSet
+  case staticIpNotSet
+  case invalidIp
+  case subnetMaskNotSet
+  case invalidSubnetMask
+  case gatewayNotSet
+  case invalidGateway
+  case dnsNotSet
+  case invalidDns
+  public var message: Swift.String {
+    get
+  }
+  public static func == (a: BDEnhanced.WiFiConfigurationError, b: BDEnhanced.WiFiConfigurationError) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum WiFiSecurityType : Swift.Int, Swift.CaseIterable {
+  case Open
+  case WEP
+  case WPA2
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [BDEnhanced.WiFiSecurityType]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [BDEnhanced.WiFiSecurityType] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension BDEnhanced.AirStatus : Swift.Equatable {}
+extension BDEnhanced.AirStatus : Swift.Hashable {}
+extension BDEnhanced.AirStatus : Swift.RawRepresentable {}
+extension BDEnhanced.AutoNeuralDriveStatus : Swift.Equatable {}
+extension BDEnhanced.AutoNeuralDriveStatus : Swift.Hashable {}
+extension BDEnhanced.AutoNeuralDriveStatus : Swift.RawRepresentable {}
+extension BDEnhanced.ControlAreaStatus : Swift.Equatable {}
+extension BDEnhanced.ControlAreaStatus : Swift.Hashable {}
+extension BDEnhanced.ControlAreaStatus : Swift.RawRepresentable {}
+extension BDEnhanced.DEFDosingMode : Swift.Equatable {}
+extension BDEnhanced.DEFDosingMode : Swift.Hashable {}
+extension BDEnhanced.DEFDosingMode : Swift.RawRepresentable {}
+extension BDEnhanced.DEFType : Swift.Equatable {}
+extension BDEnhanced.DEFType : Swift.Hashable {}
+extension BDEnhanced.DEFType : Swift.RawRepresentable {}
+extension BDEnhanced.DiscriminatoryDisplayStrategy : Swift.Equatable {}
+extension BDEnhanced.DiscriminatoryDisplayStrategy : Swift.Hashable {}
+extension BDEnhanced.DiscriminatoryDisplayStrategy : Swift.RawRepresentable {}
+extension BDEnhanced.EmissionRequirements : Swift.Equatable {}
+extension BDEnhanced.EmissionRequirements : Swift.Hashable {}
+extension BDEnhanced.EmissionRequirements : Swift.RawRepresentable {}
+extension BDEnhanced.EmissionsSystemReadiness : Swift.Equatable {}
+extension BDEnhanced.EmissionsSystemReadiness : Swift.Hashable {}
+extension BDEnhanced.EmissionsSystemReadiness : Swift.RawRepresentable {}
+extension BDEnhanced.EVChargingState : Swift.Equatable {}
+extension BDEnhanced.EVChargingState : Swift.Hashable {}
+extension BDEnhanced.EVChargingState : Swift.RawRepresentable {}
+extension BDEnhanced.FuelSystemStatus : Swift.Equatable {}
+extension BDEnhanced.FuelSystemStatus : Swift.Hashable {}
+extension BDEnhanced.FuelSystemStatus : Swift.RawRepresentable {}
+extension BDEnhanced.FuelType : Swift.Equatable {}
+extension BDEnhanced.FuelType : Swift.Hashable {}
+extension BDEnhanced.FuelType : Swift.RawRepresentable {}
+extension BDEnhanced.InducementStatus : Swift.Equatable {}
+extension BDEnhanced.InducementStatus : Swift.Hashable {}
+extension BDEnhanced.InducementStatus : Swift.RawRepresentable {}
+extension BDEnhanced.LoopStatus : Swift.Equatable {}
+extension BDEnhanced.LoopStatus : Swift.Hashable {}
+extension BDEnhanced.LoopStatus : Swift.RawRepresentable {}
+extension BDEnhanced.FirmwareUpdateError : Swift.Equatable {}
+extension BDEnhanced.FirmwareUpdateError : Swift.Hashable {}
+extension BDEnhanced.ManualTransNeutralGearStatus : Swift.Equatable {}
+extension BDEnhanced.ManualTransNeutralGearStatus : Swift.Hashable {}
+extension BDEnhanced.ManualTransNeutralGearStatus : Swift.RawRepresentable {}
+extension BDEnhanced.MIActivationMode : Swift.Equatable {}
+extension BDEnhanced.MIActivationMode : Swift.Hashable {}
+extension BDEnhanced.MIActivationMode : Swift.RawRepresentable {}
+extension BDEnhanced.MonitorTestStatus : Swift.Equatable {}
+extension BDEnhanced.MonitorTestStatus : Swift.Hashable {}
+extension BDEnhanced.SparkTests : Swift.CustomStringConvertible {}
+extension BDEnhanced.CompressionTests : Swift.CustomStringConvertible {}
+extension BDEnhanced.OBDRequirements : Swift.Equatable {}
+extension BDEnhanced.OBDRequirements : Swift.Hashable {}
+extension BDEnhanced.OBDRequirements : Swift.RawRepresentable {}
+extension BDEnhanced.Mode : Swift.Equatable {}
+extension BDEnhanced.Mode : Swift.Hashable {}
+extension BDEnhanced.Mode : Swift.RawRepresentable {}
+extension BDEnhanced.SupportStatus : Swift.Equatable {}
+extension BDEnhanced.SupportStatus : Swift.Hashable {}
+extension BDEnhanced.PIDCategory : Swift.Equatable {}
+extension BDEnhanced.PIDCategory : Swift.Hashable {}
+extension BDEnhanced.RegenType : Swift.Equatable {}
+extension BDEnhanced.RegenType : Swift.Hashable {}
+extension BDEnhanced.RegenType : Swift.RawRepresentable {}
+extension BDEnhanced.LVMScanType : Swift.Equatable {}
+extension BDEnhanced.LVMScanType : Swift.Hashable {}
+extension BDEnhanced.LVMScanType : Swift.RawRepresentable {}
+extension BDEnhanced.LVMLightCategory : Swift.Equatable {}
+extension BDEnhanced.LVMLightCategory : Swift.Hashable {}
+extension BDEnhanced.LVMLightCategory : Swift.RawRepresentable {}
+extension BDEnhanced.LVMModuleCategory : Swift.Equatable {}
+extension BDEnhanced.LVMModuleCategory : Swift.Hashable {}
+extension BDEnhanced.LVMModuleCategory : Swift.RawRepresentable {}
+extension BDEnhanced.SCRInducementState : Swift.Equatable {}
+extension BDEnhanced.SCRInducementState : Swift.Hashable {}
+extension BDEnhanced.SCRInducementState : Swift.RawRepresentable {}
+extension BDEnhanced.LVMSensorStatus : Swift.Equatable {}
+extension BDEnhanced.LVMSensorStatus : Swift.Hashable {}
+extension BDEnhanced.CommError : Swift.Equatable {}
+extension BDEnhanced.CommError : Swift.Hashable {}
+extension BDEnhanced.SensorConnectionStatus : Swift.Equatable {}
+extension BDEnhanced.SensorConnectionStatus : Swift.Hashable {}
+extension BDEnhanced.BroadcastStatus : Swift.Equatable {}
+extension BDEnhanced.BroadcastStatus : Swift.Hashable {}
+extension BDEnhanced.SimpleLoopStatus : Swift.Equatable {}
+extension BDEnhanced.SimpleLoopStatus : Swift.Hashable {}
+extension BDEnhanced.SimpleLoopStatus : Swift.RawRepresentable {}
+extension BDEnhanced.SmogInfoError : Swift.Equatable {}
+extension BDEnhanced.SmogInfoError : Swift.Hashable {}
+extension BDEnhanced.SmogReportStatus : Swift.Equatable {}
+extension BDEnhanced.SmogReportStatus : Swift.Hashable {}
+extension BDEnhanced.TransmissionGear : Swift.Equatable {}
+extension BDEnhanced.TransmissionGear : Swift.Hashable {}
+extension BDEnhanced.TransmissionGear : Swift.RawRepresentable {}
+extension BDEnhanced.VinError : Swift.Equatable {}
+extension BDEnhanced.VinError : Swift.Hashable {}
+extension BDEnhanced.WiFiConfigurationError : Swift.Equatable {}
+extension BDEnhanced.WiFiConfigurationError : Swift.Hashable {}
+extension BDEnhanced.WiFiSecurityType : Swift.Equatable {}
+extension BDEnhanced.WiFiSecurityType : Swift.Hashable {}
+extension BDEnhanced.WiFiSecurityType : Swift.RawRepresentable {}
